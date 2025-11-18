@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
 import enum
 import logging
 import collections
+from typing import Optional, Iterable, Tuple, List, Any, Dict, Type
 
 log = logging.getLogger(__name__)
 
@@ -27,7 +29,9 @@ class UnexpandedTermError(LookupError):
 class SdoTermOrId(object):
     """Wrapper that holds a term-id or a term, or nothing."""
 
-    def __init__(self, term_id : str = None, term = None):
+    def __init__(
+        self, term_id: Optional[str] = None, term: Optional[SdoTerm] = None
+    ) -> None:
         # Empty instance is fine.
         assert not (term_id and term), f"{term_id} {term}"
         if term:
@@ -45,15 +49,15 @@ class SdoTermOrId(object):
         return self._term_id
 
     @property
-    def term(self):
+    def term(self) -> SdoTerm:
         if not self._term:
              raise UnexpandedTermError()
         return self._term
 
-    def setId(self, term_id):
+    def setId(self, term_id: str) -> None:
         self._term_id = term_id
 
-    def setTerm(self, term):
+    def setTerm(self, term: SdoTerm) -> None:
         self._term = term
         if self._term:
             self._term_id = term.id
@@ -78,7 +82,7 @@ class SdoTermSequence(object):
         self._term_dict = collections.OrderedDict()
 
     @classmethod
-    def forElements(cls, elements):
+    def forElements(cls, elements: Iterable[Any]) -> SdoTermSequence:
         """Convert an arbitrary sequence into a SdoTermSequence."""
         if isinstance(elements, cls):
             return elements
@@ -99,25 +103,25 @@ class SdoTermSequence(object):
         return sequence
 
     @property
-    def expanded(self):
+    def expanded(self) -> bool:
         return all(self._term_dict.values())
 
     @property
-    def ids(self):
+    def ids(self) -> Tuple[str, ...]:
         return tuple(self._term_dict.keys())
 
     @property
-    def terms(self):
+    def terms(self) -> Tuple[SdoTerm, ...]:
         if not self.expanded:
           raise UnexpandedTermError()
         return tuple(self._term_dict.values())
 
-    def setIds(self, term_ids):
+    def setIds(self, term_ids: Iterable[str]) -> None:
         self._term_dict.clear()
         for term_id in term_ids:
             self._term_dict[term_id] = None
 
-    def setTerms(self, terms):
+    def setTerms(self, terms: Iterable[SdoTerm]) -> None:
         self._term_dict.clear()
         for term in terms:
             self._term_dict[term.id] = term
@@ -165,22 +169,22 @@ class SdoTerm(object):
         self._term_id = term_id
         self.label = label
 
-        self.acknowledgements = []
+        self.acknowledgements: List[str] = []
 
         self.comment = ""
-        self.comments = []
+        self.comments: List[str] = []
 
-        self.examples = []
+        self.examples: List[str] = []
         self.pending = False
         self.retired = False
         self.extLayer = ""
-        self.sources = []
+        self.sources: List[str] = []
 
 
-        self.supersededBy = ""
-        self.supersedes = ""
+        self.supersededBy: Optional[str] = ""
+        self.supersedes: Optional[str] = ""
         self.superseded = False
-        self.superPaths = []
+        self.superPaths: List[List[str]] = []
 
         self._termStack = SdoTermSequence()
         self._supers = SdoTermSequence()
@@ -201,26 +205,26 @@ class SdoTerm(object):
     def __lt__(self, other):
         return self.id < other.id
 
-    def markExpanded(self, depth : int):
+    def markExpanded(self, depth: int) -> None:
         self._expansion_depth = depth
 
-    def expanded(self):
+    def expanded(self) -> bool:
         return self._expansion_depth > 1
 
     @property
-    def supers(self):
-        return self._supers;
+    def supers(self) -> SdoTermSequence:
+        return self._supers
 
     @property
-    def subs(self):
-        return self._subs;
+    def subs(self) -> SdoTermSequence:
+        return self._subs
 
     @property
-    def equivalents(self):
+    def equivalents(self) -> SdoTermSequence:
         return self._equivalents
 
     @property
-    def termStack(self):
+    def termStack(self) -> SdoTermSequence:
         return self._termStack
 
     @property
@@ -238,15 +242,15 @@ class SdoType(SdoTerm):
         self._expectedTypeFor = SdoTermSequence()
 
     @property
-    def properties(self):
+    def properties(self) -> SdoTermSequence:
         return self._properties
 
     @property
-    def allproperties(self):
+    def allproperties(self) -> SdoTermSequence:
         return self._allproperties
 
     @property
-    def expectedTypeFor(self):
+    def expectedTypeFor(self) -> SdoTermSequence:
         return self._expectedTypeFor
 
 
@@ -260,15 +264,15 @@ class SdoProperty(SdoTerm):
         self._inverse = SdoTermOrId()
 
     @property
-    def domainIncludes(self):
+    def domainIncludes(self) -> SdoTermSequence:
         return self._domainIncludes
 
     @property
-    def rangeIncludes(self):
+    def rangeIncludes(self) -> SdoTermSequence:
         return self._rangeIncludes
 
     @property
-    def inverse(self):
+    def inverse(self) -> SdoTermOrId:
         return self._inverse
 
 
@@ -284,15 +288,15 @@ class SdoDataType(SdoTerm):
         self._expectedTypeFor = SdoTermSequence()
 
     @property
-    def properties(self):
+    def properties(self) -> SdoTermSequence:
         return self._properties
 
     @property
-    def allproperties(self):
+    def allproperties(self) -> SdoTermSequence:
         return self._allproperties
 
     @property
-    def expectedTypeFor(self):
+    def expectedTypeFor(self) -> SdoTermSequence:
         return self._expectedTypeFor
 
 
@@ -307,19 +311,19 @@ class SdoEnumeration(SdoTerm):
         self._enumerationMembers = SdoTermSequence()
 
     @property
-    def properties(self):
+    def properties(self) -> SdoTermSequence:
         return self._properties
 
     @property
-    def allproperties(self):
+    def allproperties(self) -> SdoTermSequence:
         return self._allproperties
 
     @property
-    def expectedTypeFor(self):
+    def expectedTypeFor(self) -> SdoTermSequence:
         return self._expectedTypeFor
 
     @property
-    def enumerationMembers(self):
+    def enumerationMembers(self) -> SdoTermSequence:
         return self._enumerationMembers
 
 
@@ -331,7 +335,7 @@ class SdoEnumerationvalue(SdoTerm):
         self._enumerationParent = SdoTermOrId()
 
     @property
-    def enumerationParent(self):
+    def enumerationParent(self) -> SdoTermOrId:
         return self._enumerationParent
 
 

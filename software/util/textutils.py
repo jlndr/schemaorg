@@ -4,14 +4,14 @@
 import re
 
 
-def StripHtmlTags(source):
+def StripHtmlTags(source: str) -> str:
     """Strip all HTML tags from source."""
     if source and len(source) > 0:
         return re.sub("<[^<]+?>", "", source)
     return ""
 
 
-def ShortenOnSentence(source, lengthHint=250):
+def ShortenOnSentence(source: str, lengthHint: int = 250) -> str:
     """Shorten source at a sentence boundary.
 
     Args:

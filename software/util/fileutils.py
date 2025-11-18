@@ -4,6 +4,7 @@
 import os
 import shutil
 import enum
+from typing import Optional, Callable
 
 
 EXTENSIONS_FOR_FORMAT = {
@@ -32,7 +33,7 @@ FILESET_SELECTORS = frozenset([s.value for s in FileSelector])
 FILESET_PROTOCOLS = frozenset(["http", "https"])
 
 
-def createMissingDir(dir_path):
+def createMissingDir(dir_path: str) -> None:
     """Create a directory if it does not exist"""
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
@@ -43,7 +44,7 @@ def isAll(selector: str):
     return str(selector).lower() == FileSelector.ALL
 
 
-def checkFilePath(path):
+def checkFilePath(path: str) -> None:
     if not path in CHECKEDPATHS:
         CHECKEDPATHS.add(path)
         # os.path.join ignores the first argument if `path` is absolute.
@@ -97,7 +98,12 @@ def releaseFilePath(
     )
 
 
-def mycopytree(src, dst, symlinks=False, ignore=None):
+def mycopytree(
+    src: str,
+    dst: str,
+    symlinks: bool = False,
+    ignore: Optional[Callable] = None,
+) -> None:
     """Copy a file-system tree, copes with already existing directories."""
     names = os.listdir(src)
     if ignore is not None:
