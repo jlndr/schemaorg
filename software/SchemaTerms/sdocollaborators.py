@@ -3,7 +3,9 @@
 
 # Import standard python libraries
 
+from __future__ import annotations
 import collections
+from typing import Optional, List
 import glob
 import logging
 import os
@@ -31,10 +33,10 @@ SECTION_SEPARATOR = "---"
 class collaborator(object):
     """Wrapper for the collaboration meta-data."""
 
-    COLLABORATORS = {}
-    CONTRIBUTORS = {}
+    COLLABORATORS: Dict[str, collaborator] = {}
+    CONTRIBUTORS: Dict[str, collaborator] = {}
 
-    def __init__(self, ref, desc=None):
+    def __init__(self, ref: str, desc: Optional[str] = None) -> None:
         self.ref = ref
         self.urirel = os.path.join("/docs", "collab", ref)
         self.uri = schemaglobals.HOMEPAGE + self.urirel
@@ -49,17 +51,19 @@ class collaborator(object):
         collaborator.COLLABORATORS[self.ref] = self
         log.debug(f"Created collaborator for '{ref}'")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             f"<collaborator ref: {self.ref} uri: {self.uri} contributor: {self.contributor} img: '{self.img}' title: '{self.title}' url: 'self.url'>"
         )
 
-    def _parseDesc(self, desc):
+    def _parseDesc(self, desc: Optional[str]) -> None:
         """Parses data from the pseudo-markdown format.
 
         Args:
           desc: content of the file, typically found at the path data/collab/*.md
         """
+        if not desc:
+            return
         section = 0
         attributes = {}
         lines_by_section = collections.defaultdict(list)
@@ -105,10 +109,10 @@ class collaborator(object):
         self.description = localmarkdown.Markdown.parseLines(description_lines)
         self.acknowledgement = localmarkdown.Markdown.parseLines(acknowledgement_lines)
 
-    def isContributor(self):
+    def isContributor(self) -> bool:
         return self.contributor
 
-    def getTerms(self):
+    def getTerms(self) -> List[sdoterm.SdoTerm]:
         if not self.contributor:
             return []
         if not self.terms:
@@ -116,7 +120,7 @@ class collaborator(object):
         return self.terms
 
     @classmethod
-    def getCollaborator(cls, ref):
+    def getCollaborator(cls, ref: str) -> Optional[collaborator]:
         cls.loadCollaborators()
         key = os.path.basename(ref)
         coll = cls.COLLABORATORS.get(key, None)
@@ -125,7 +129,7 @@ class collaborator(object):
         return coll
 
     @classmethod
-    def getContributor(cls, ref):
+    def getContributor(cls, ref: str) -> Optional[collaborator]:
         key = os.path.basename(ref)
         cls.loadContributors()
         cont = cls.CONTRIBUTORS.get(key, None)
@@ -134,7 +138,7 @@ class collaborator(object):
         return cont
 
     @classmethod
-    def createCollaborator(cls, file_path):
+    def createCollaborator(cls, file_path: str) -> Optional[collaborator]:
         code = os.path.basename(file_path)
         ref, _ = os.path.splitext(code)
         try:
@@ -146,14 +150,14 @@ class collaborator(object):
             return None
 
     @classmethod
-    def loadCollaborators(cls):
+    def loadCollaborators(cls) -> None:
         if not len(cls.COLLABORATORS):
             for file_path in glob.glob("data/collab/*.md"):
                 cls.createCollaborator(file_path)
             log.info(f"Loaded {len(cls.COLLABORATORS)} collaborators")
 
     @classmethod
-    def createContributor(cls, ref):
+    def createContributor(cls, ref: str) -> None:
         key = os.path.basename(ref)
         coll = cls.getCollaborator(key)
         if coll:
@@ -161,7 +165,7 @@ class collaborator(object):
             cls.CONTRIBUTORS[key] = coll
 
     @classmethod
-    def loadContributors(cls):
+    def loadContributors(cls) -> None:
         if not len(cls.CONTRIBUTORS):
             cls.loadCollaborators()
             query = """
@@ -174,11 +178,11 @@ class collaborator(object):
             log.info(f"Loaded {len(cls.CONTRIBUTORS)} contributors")
 
     @classmethod
-    def collaborators(cls):
+    def collaborators(cls) -> List[collaborator]:
         cls.loadCollaborators()
         return list(cls.COLLABORATORS.values())
 
     @classmethod
-    def contributors(cls):
+    def contributors(cls) -> List[collaborator]:
         cls.loadContributors()
         return list(cls.CONTRIBUTORS.values())
