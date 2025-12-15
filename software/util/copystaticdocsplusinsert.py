@@ -35,7 +35,7 @@ def _getInserts():
         indata = indata.replace(
             "{{versiondate}}", schemaversion.getCurrentVersionDate()
         )
-        indata = indata.replace("{{docsdir}}", "/docs")
+        indata = indata.replace("{{docsdir}}", "docs")
         yield (fn, indata)
 
 

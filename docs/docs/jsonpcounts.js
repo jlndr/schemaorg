@@ -1,0 +1,5 @@
+
+    COUNTS = '{"Type": 827, "Property": 1528, "Datatype": 14, "Enumeration": 94, "Enumerationvalue": 522, "All": 2985, "schemaorgversion": "29.4"}';
+
+    insertschemacounts ( COUNTS );
+    

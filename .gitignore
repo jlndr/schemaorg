@@ -16,6 +16,9 @@ software/scripts/.bundle
 software/site/*
 /tmp
 
+# Github pages
+# gh_pages_site/*
+
 # Environments (from https://github.com/github/gitignore/blob/main/Python.gitignore)
 .env
 .venv

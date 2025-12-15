@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from TermPageEx.j2 -->
+    
+    
+    <head>
+
+    <title>incentiveAmount - Schema.org Property</title>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schema.org Property: incentiveAmount - Describes the amount that can be redeemed from this incentive.&lt;br/&gt;&lt;br/&gt;
+
+&lt;a class=&#34;localLink&#34; href=&#34;/QuantitativeValue&#34;&gt;QuantitativeValue&lt;/a&gt;: Use this for incentives based on price (either raw amount or percentage-based). For a raw amount example, &#34;You can claim $2,500 - $7,500 from the total cost of installation&#34; would be represented as the following:&lt;br/&gt;&lt;br/&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &#34;@type&#34;: &#34;QuantitativeValue&#34;,
+    “minValue”: 2500,
+    “maxValue”: 7500,
+    &#34;unitCode&#34;: &#34;USD&#34;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;a class=&#34;localLink&#34; href=&#34;/QuantitivateValue&#34;&gt;QuantitivateValue&lt;/a&gt; can also be used for percentage amounts. In such cases, value is used to represent the incentive’s percentage, while maxValue represents a limit (if one exists) to that incentive. The unitCode should be &#39;P1&#39; and the unitText should be &#39;%&#39;, while valueReference should be used for holding the currency type. For example, &#34;You can claim up to 30% of the total cost of installation, up to a maximum of $7,500&#34; would be:&lt;br/&gt;&lt;br/&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &#34;@type&#34;: &#34;QuantitativeValue&#34;,
+    &#34;value&#34;: 30,
+    &#34;unitCode&#34;: &#34;P1&#34;,
+    &#34;unitText&#34;: &#34;%&#34;,
+    “maxValue”: 7500,
+    “valueReference”: “USD”
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;a class=&#34;localLink&#34; href=&#34;/UnitPriceSpecification&#34;&gt;UnitPriceSpecification&lt;/a&gt;: Use this for incentives that are based on amounts rather than price. For example, a net metering rebate that pays $10/kWh, up to $1,000:&lt;br/&gt;&lt;br/&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &#34;@type&#34;: &#34;UnitPriceSpecification&#34;,
+    &#34;price&#34;: 10,
+    &#34;priceCurrency&#34;: &#34;USD&#34;,
+    &#34;referenceQuantity&#34;: 1,
+    &#34;unitCode&#34;: &#34;DO3&#34;,
+    &#34;unitText&#34;: &#34;kw/h&#34;,
+    &#34;maxPrice&#34;: 1000,
+    &#34;description&#34;: &#34;$10 / kwh up to $1000&#34;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;a class=&#34;localLink&#34; href=&#34;/LoanOrCredit&#34;&gt;LoanOrCredit&lt;/a&gt;: Use for incentives that are loan based. For example, a loan of $4,000 - $50,000 with a repayment term of 10 years, interest free would look like:&lt;br/&gt;&lt;br/&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &#34;@type&#34;: &#34;LoanOrCredit&#34;,
+    &#34;loanTerm&#34;: {
+            &#34;@type&#34;:&#34;QuantitativeValue&#34;,
+            &#34;value&#34;:&#34;10&#34;,
+            &#34;unitCode&#34;: &#34;ANN&#34;
+        },
+    &#34;amount&#34;:[
+        {
+            &#34;@type&#34;: &#34;QuantitativeValue&#34;,
+            &#34;Name&#34;:&#34;fixed interest rate&#34;,
+            &#34;value&#34;:&#34;0&#34;,
+        },
+    ],
+    &#34;amount&#34;:[
+        {
+            &#34;@type&#34;: &#34;MonetaryAmount&#34;,
+            &#34;Name&#34;:&#34;min loan amount&#34;,
+            &#34;value&#34;:&#34;4000&#34;,
+            &#34;currency&#34;:&#34;CAD&#34;
+        },
+        {
+            &#34;@type&#34;: &#34;MonetaryAmount&#34;,
+            &#34;Name&#34;:&#34;max loan amount&#34;,
+            &#34;value&#34;:&#34;50000&#34;,
+            &#34;currency&#34;:&#34;CAD&#34;
+        }
+    ],
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+In summary: &lt;ul&gt;&lt;li&gt;Use &lt;a class=&#34;localLink&#34; href=&#34;/QuantitativeValue&#34;&gt;QuantitativeValue&lt;/a&gt; for absolute/percentage-based incentives applied on the price of a good/service.&lt;/li&gt;
+&lt;li&gt;Use &lt;a class=&#34;localLink&#34; href=&#34;/UnitPriceSpecification&#34;&gt;UnitPriceSpecification&lt;/a&gt; for incentives based on a per-unit basis (e.g. net metering).&lt;/li&gt;
+&lt;li&gt;Use &lt;a class=&#34;localLink&#34; href=&#34;/LoanOrCredit&#34;&gt;LoanOrCredit&lt;/a&gt; for loans/credits.&lt;/li&gt;
+&lt;/ul&gt;." />
+    <link rel="shortcut icon" type="image/png" href="docs/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="docs/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="docs/devnote.css" />
+    <link rel="stylesheet" type="text/css" href="docs/prettify.css" />
+    <script src="docs/prettify.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="docs/schemaorg.js"></script>
+<!-- <script src="docs/debugwindow/viewconsole.js"></script> -->
+    <script src="docs/sdotermpage.js"></script>
+    <link rel="stylesheet" type="text/css" href="docs/sdotermpage.css" />
+    <script src="docs/pretty-markup/schemarama-parsing.bundle.min.js"></script>
+    <script src="docs/pretty-markup/layout.js"></script>
+    <link rel="stylesheet" type="text/css" href="docs/pretty-markup/style.css" />
+    <script src="docs/clipboard/clipboard.min.js"></script>
+
+<link rel="canonical" href="https://schema.org/incentiveAmount" />
+   
+</head>
+
+    
+    
+
+<body>
+    <!-- Header start from PageHeader.j2 -->
+<!-- Static Doc Insert PageHead -->
+
+<div class="devnote"><b>Note</b>: You are viewing the development
+  version of <a href="https://schema.org">Schema.org</a>.
+  See <a href="docs/howwework.html">how we work</a> for more details.
+</div>
+<div id="container">
+  <div id="headerwrap">
+    <div id="pagehead1" class="mobnav">
+      <div class="header-block" id="pagehead-left">
+        <div id="sitename2">
+          <a href="/">Schema.org</a>
+        </div>
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-mid">
+        <div id="selectionbar2">
+          <ul>
+            <li>
+              <a href="docs/documents.html">Docs</a>
+            </li>
+            <li>
+              <a href="docs/schemas.html">Schemas</a>
+            </li>
+            <li>
+              <a href="https://validator.schema.org">Validate</a>
+            </li>
+            <li>
+              <a href="docs/about.html">About</a>
+            </li>
+          </ul>
+        </div> <!-- selectionbar -->
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-right">
+        <div id="cse-search-form2" class="live-only">
+            <div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div>
+        </div>
+      </div>
+      <div class="header-block mobnav" id="navicon2">
+        <a href="javascript:void(0);" class="icon" onclick="navFunction()">
+          <svg id="open" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_3560_173)">
+            <path d="M3 18V16H21V18H3ZM3 13V11H21V13H3ZM3 8V6H21V8H3Z" fill="#444746"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_3560_173">
+            <rect width="24" height="24" fill="white"/>
+            </clipPath>
+            </defs>
+          </svg>
+          <svg id="close" width="24px" height="24px" viewBox="0 -960 960 960" fill="#444746" xmlns="http://www.w3.org/2000/svg">
+            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="header-bottom"></div>
+</div>
+<!-- Header end from PageHeader.j2 -->
+    <div id="mainContent">
+        
+      
+
+<div id="infoblock" class="jumptarget" title="Details">
+  <!-- Label /  termType  / canonical URI -->
+    <div id="infohead">
+        <h1>incentiveAmount</h1>
+        <div class="infotype">A Schema.org Property</div>
+        <!-- Pending/retired/term in section -->
+        
+        <br/><em>This term is in the "new" area - implementation feedback and adoption from applications and websites can help improve our definitions.</em>
+        
+    </div>
+  <!-- Breadcrumb display of term inheritance -->
+    <div class="superPaths" itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+        
+            
+                
+            
+          
+    
+    
+    <span itemscope itemprop="itemListElement" itemtype="https://schema.org/ListItem">
+    <meta itemprop="name" content="Thing" />
+    <meta itemprop="position" content="1" />
+    <a href="/Thing"  itemprop="item"
+        class="core" title="Thing">Thing</a>
+    </span>
+            
+                
+                     &gt; 
+                
+            
+          
+    
+    
+    <span itemscope itemprop="itemListElement" itemtype="https://schema.org/ListItem">
+    <meta itemprop="name" content="Property" />
+    <meta itemprop="position" content="2" />
+    <a href="/Property"  itemprop="item"
+        class="core" title="Property">Property</a>
+    </span>
+            
+                
+                     :: 
+                
+            
+          
+    
+    
+    <span itemscope itemprop="itemListElement" itemtype="https://schema.org/ListItem">
+    <meta itemprop="name" content="incentiveAmount" />
+    <meta itemprop="position" content="3" />
+    <a href="/incentiveAmount"  itemprop="item"
+        class="core" title="incentiveAmount">incentiveAmount</a>
+    </span>
+
+        <br/>
+    
+    </div>
+    <!-- More Block -->
+    <div>
+            <div id='infobox' style='text-align: right; padding-right: 5px;' role="checkbox" aria-checked="false">
+                <label for="morecheck"><b><span style="cursor: pointer;">[more...]</span></b></label>
+            </div>
+            <input type='checkbox' checked="checked" style='display: none' id=morecheck><div id='infomsg' style='background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
+            <ul><li> <span class="canonicalUrl">Canonical URL: https://schema.org/incentiveAmount</span> </li>
+            
+                <!--<li><a href='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795=https://schema.org/incentiveAmount&entry.882602760=Property'>Leave public feedback on this term &#128172;</a></li>-->
+                <li><a href='https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+is%3Aopen+incentiveAmount'>Check for open issues.</a></li>
+            </ul>
+    </div>
+    </div>
+
+  <!-- Description of term -->
+    <div class="description">Describes the amount that can be redeemed from this incentive.<br/><br/>
+
+<a class="localLink" href="/QuantitativeValue">QuantitativeValue</a>: Use this for incentives based on price (either raw amount or percentage-based). For a raw amount example, "You can claim $2,500 - $7,500 from the total cost of installation" would be represented as the following:<br/><br/>
+
+<pre><code>{
+    "@type": "QuantitativeValue",
+    “minValue”: 2500,
+    “maxValue”: 7500,
+    "unitCode": "USD"
+}
+</code></pre>
+
+<a class="localLink" href="/QuantitivateValue">QuantitivateValue</a> can also be used for percentage amounts. In such cases, value is used to represent the incentive’s percentage, while maxValue represents a limit (if one exists) to that incentive. The unitCode should be 'P1' and the unitText should be '%', while valueReference should be used for holding the currency type. For example, "You can claim up to 30% of the total cost of installation, up to a maximum of $7,500" would be:<br/><br/>
+
+<pre><code>{
+    "@type": "QuantitativeValue",
+    "value": 30,
+    "unitCode": "P1",
+    "unitText": "%",
+    “maxValue”: 7500,
+    “valueReference”: “USD”
+}
+</code></pre>
+
+<a class="localLink" href="/UnitPriceSpecification">UnitPriceSpecification</a>: Use this for incentives that are based on amounts rather than price. For example, a net metering rebate that pays $10/kWh, up to $1,000:<br/><br/>
+
+<pre><code>{
+    "@type": "UnitPriceSpecification",
+    "price": 10,
+    "priceCurrency": "USD",
+    "referenceQuantity": 1,
+    "unitCode": "DO3",
+    "unitText": "kw/h",
+    "maxPrice": 1000,
+    "description": "$10 / kwh up to $1000"
+}
+</code></pre>
+
+<a class="localLink" href="/LoanOrCredit">LoanOrCredit</a>: Use for incentives that are loan based. For example, a loan of $4,000 - $50,000 with a repayment term of 10 years, interest free would look like:<br/><br/>
+
+<pre><code>{
+    "@type": "LoanOrCredit",
+    "loanTerm": {
+            "@type":"QuantitativeValue",
+            "value":"10",
+            "unitCode": "ANN"
+        },
+    "amount":[
+        {
+            "@type": "QuantitativeValue",
+            "Name":"fixed interest rate",
+            "value":"0",
+        },
+    ],
+    "amount":[
+        {
+            "@type": "MonetaryAmount",
+            "Name":"min loan amount",
+            "value":"4000",
+            "currency":"CAD"
+        },
+        {
+            "@type": "MonetaryAmount",
+            "Name":"max loan amount",
+            "value":"50000",
+            "currency":"CAD"
+        }
+    ],
+}
+</code></pre>
+
+In summary: <ul><li>Use <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> for absolute/percentage-based incentives applied on the price of a good/service.</li>
+<li>Use <a class="localLink" href="/UnitPriceSpecification">UnitPriceSpecification</a> for incentives based on a per-unit basis (e.g. net metering).</li>
+<li>Use <a class="localLink" href="/LoanOrCredit">LoanOrCredit</a> for loans/credits.</li>
+</ul>.</div>
+        
+    
+
+</div> <!-- infoblock -->
+
+    
+
+        
+            
+
+            <div class="jumptarget" id="values" title="Values">
+                <h3>Values expected to be one of these types</h3>
+                <code><ul>
+                
+                    
+                        <li>
+    
+    
+    <a href="/LoanOrCredit" 
+        class="core" title="LoanOrCredit">LoanOrCredit</a></li>
+                    
+                
+                    
+                        <li>
+    
+    
+    <a href="/QuantitativeValue" 
+        class="core" title="QuantitativeValue">QuantitativeValue</a></li>
+                    
+                
+                    
+                        <li>
+    
+    
+    <a href="/UnitPriceSpecification" 
+        class="core" title="UnitPriceSpecification">UnitPriceSpecification</a></li>
+                    
+                
+                </code></ul>
+            </div>
+            <div class="jumptarget" id="types" title="Used on">
+                <h3>Used on these types</h3>
+                <code><ul>
+                
+                    
+                        <li>
+    
+    
+    <a href="/FinancialIncentive" 
+        class="ext ext-pending" title="FinancialIncentive">FinancialIncentive</a></li>
+                    
+                
+                </code></ul>
+            </div>
+        
+
+    
+
+
+        <!-- List subtypes/subproperties -->
+        
+            
+                                                    
+            
+          
+            <!-- List subs (Subtypes/subproperties/enumeration members/etc.) for Term -->
+
+
+        
+
+    <!-- list supersedes and superseded references -->
+    
+
+
+        <!-- list source references and acknowledgements -->
+    
+
+
+    
+	<h4  id="source" class="jumptarget" title="Source">Source</h4>
+    
+	<p><a href="https://github.com/schemaorg/schemaorg/issues/3572">https://github.com/schemaorg/schemaorg/issues/3572</a></p>
+    <br/>
+
+
+
+    <!-- list examples  -->
+    <!-- Examples block for term: incentiveAmount-->
+
+
+
+    </div> <!-- mainContent -->
+  <!-- Footer start from PageFooter.j2 -->
+    
+    <div id="footer">
+      <p><a href="docs/terms.html">Terms and conditions</a></p>
+      <div id="versioninfo">
+        <span class="sep">•</span>
+        Schema.org
+        <span class="sep">•</span>
+        V29.4
+        <span class="sep">|</span>
+        2025-12-08
+      </div>
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-52672119-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+<!-- Footer end from PageFooter.j2 -->
+    
+<script type="application/ld+json">
+{
+  "@context": {
+    "brick": "https://brickschema.org/schema/Brick#",
+    "csvw": "http://www.w3.org/ns/csvw#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcam": "http://purl.org/dc/dcam/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcmitype": "http://purl.org/dc/dcmitype/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "doap": "http://usefulinc.com/ns/doap#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "org": "http://www.w3.org/ns/org#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "prof": "http://www.w3.org/ns/dx/prof/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qb": "http://purl.org/linked-data/cube#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "https://schema.org/",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "time": "http://www.w3.org/2006/time#",
+    "vann": "http://purl.org/vocab/vann/",
+    "void": "http://rdfs.org/ns/void#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "schema:incentiveAmount",
+  "@type": "rdf:Property",
+  "rdfs:comment": "Describes the amount that can be redeemed from this incentive.\n    \n<p>[[QuantitativeValue]]: Use this for incentives based on price (either raw amount or percentage-based). For a raw amount example, \"You can claim $2,500 - $7,500 from the total cost of installation\" would be represented as the following:</p>\n    {\n        \"@type\": \"QuantitativeValue\",\n        “minValue”: 2500,\n        “maxValue”: 7500,\n        \"unitCode\": \"USD\"\n    }\n<p>[[QuantitivateValue]] can also be used for percentage amounts. In such cases, value is used to represent the incentive’s percentage, while maxValue represents a limit (if one exists) to that incentive. The unitCode should be 'P1' and the unitText should be '%', while valueReference should be used for holding the currency type. For example, \"You can claim up to 30% of the total cost of installation, up to a maximum of $7,500\" would be:</p>\n    {\n        \"@type\": \"QuantitativeValue\",\n        \"value\": 30,\n        \"unitCode\": \"P1\",\n        \"unitText\": \"%\",\n        “maxValue”: 7500,\n        “valueReference”: “USD”\n    }\n<p>[[UnitPriceSpecification]]: Use this for incentives that are based on amounts rather than price. For example, a net metering rebate that pays $10/kWh, up to $1,000:</p>\n    {\n        \"@type\": \"UnitPriceSpecification\",\n        \"price\": 10,\n        \"priceCurrency\": \"USD\",\n        \"referenceQuantity\": 1,\n        \"unitCode\": \"DO3\",\n        \"unitText\": \"kw/h\",\n        \"maxPrice\": 1000,\n        \"description\": \"$10 / kwh up to $1000\"\n    }\n<p>[[LoanOrCredit]]: Use for incentives that are loan based. For example, a loan of $4,000 - $50,000 with a repayment term of 10 years, interest free would look like:</p>\n    {\n        \"@type\": \"LoanOrCredit\",\n        \"loanTerm\": {\n                \"@type\":\"QuantitativeValue\",\n                \"value\":\"10\",\n                \"unitCode\": \"ANN\"\n            },\n        \"amount\":[\n            {\n                \"@type\": \"QuantitativeValue\",\n                \"Name\":\"fixed interest rate\",\n                \"value\":\"0\",\n            },\n        ],\n        \"amount\":[\n            {\n                \"@type\": \"MonetaryAmount\",\n                \"Name\":\"min loan amount\",\n                \"value\":\"4000\",\n                \"currency\":\"CAD\"\n            },\n            {\n                \"@type\": \"MonetaryAmount\",\n                \"Name\":\"max loan amount\",\n                \"value\":\"50000\",\n                \"currency\":\"CAD\"\n            }\n        ],\n    }\n\nIn summary: <ul><li>Use [[QuantitativeValue]] for absolute/percentage-based incentives applied on the price of a good/service.</li>\n<li>Use [[UnitPriceSpecification]] for incentives based on a per-unit basis (e.g. net metering).</li>\n<li>Use [[LoanOrCredit]] for loans/credits.</li>\n</ul>.",
+  "rdfs:label": "incentiveAmount",
+  "schema:domainIncludes": {
+    "@id": "schema:FinancialIncentive"
+  },
+  "schema:isPartOf": {
+    "@id": "https://pending.schema.org"
+  },
+  "schema:rangeIncludes": [
+    {
+      "@id": "schema:UnitPriceSpecification"
+    },
+    {
+      "@id": "schema:QuantitativeValue"
+    },
+    {
+      "@id": "schema:LoanOrCredit"
+    }
+  ],
+  "schema:source": {
+    "@id": "https://github.com/schemaorg/schemaorg/issues/3572"
+  }
+}
+</script>
+    
+
+</body>
+</html>

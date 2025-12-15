@@ -208,7 +208,7 @@ def initdir(output_dir, handler_path):
     fileutils.createMissingDir(gdir)
 
     with pretty_logger.BlockLog(logger=log, message="Copying docs static files"):
-        copystaticdocsplusinsert.copyFiles("./docs", "./software/site/docs")
+        copystaticdocsplusinsert.copyFiles("./docs-src", "./software/site/docs")
 
     with pretty_logger.BlockLog(logger=log, message="Preparing GCloud files") as block:
         gcloud_files = glob.glob("software/gcloud/*.yaml")
@@ -367,8 +367,6 @@ def copyReleaseFiles(release_dir):
         logger=log,
     ):
         fileutils.mycopytree(srcdir, destdir)
-        cmd = ["git", "add", destdir]
-        subprocess.check_call(cmd)
 
 
 ###################################################

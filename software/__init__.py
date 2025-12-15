@@ -6,7 +6,7 @@ import os
 import sys
 
 LIB_PATHS = ()
-DATA_PATHS = ("docs", "software/gcloud", "data")
+DATA_PATHS = ("docs-src", "software/gcloud", "data")
 REQUIRED_VERSION = (3, 11)
 _INITIALIZED = None
 
